@@ -1,13 +1,71 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+blue {
+  color: darkblue;
+}
+.rating {
+  padding-top: 2%;
+}
+
+.rating span {
+  color: #f0c040;
+  margin: 0.1rem;
+}
+
+/* message */
+
+.succes {
+  background-color: green;
+  color: white;
+}
+
+.failed {
+  background-color: red;
+  color: black;
+}
+
+/* text in offer */
+
+input:focus::before::after,
+select:focus::after,
+textarea:focus::after,
+button:focus::after {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: white;
+  box-shadow: 0 0 0 rgb(255, 255, 255);
+  -moz-box-shadow: white;
+  -webkit-box-shadow: white;
+  -webkit-tap-highlight-color: white;
+}
+/* amations */
+
+.animateClick:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  z-index: 0;
+}
+
+.information {
+  animation: cssAnimation 0s 5s forwards;
+  visibility: hidden;
+}
+
+@keyframes cssAnimation {
+  to {
+    visibility: visible;
+  }
 }
