@@ -7,6 +7,7 @@ import {
   offerReducer,
   theBestReducer,
   ourChoiceReducer,
+  offerByIdReducer,
 } from "./redux/reducers/offerReducers";
 
 const initialState = {};
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   offer: offerReducer,
   theBest: theBestReducer,
   ourChoice: ourChoiceReducer,
+  offerById: offerByIdReducer,
 });
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

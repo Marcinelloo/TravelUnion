@@ -8,6 +8,9 @@ import {
   OFFER_OBJCECT_FAIL,
   OFFER_OBJCECT_REQUEST,
   OFFER_OBJCECT_SUCCESS,
+  OFFER_BY_ID_OBJCECT_REQUEST,
+  OFFER_BY_ID_OBJCECT_SUCCESS,
+  OFFER_BY_ID_OBJCECT_FAIL,
 } from "../constants/offerConstants";
 
 export const offerReducer = (state = {}, action) => {
@@ -15,7 +18,7 @@ export const offerReducer = (state = {}, action) => {
     case OFFER_OBJCECT_REQUEST:
       return { loading: true };
     case OFFER_OBJCECT_SUCCESS:
-      return { loading: false, success: true, offer: action.payload };
+      return { loading: false, success: true, object: action.payload };
     case OFFER_OBJCECT_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -23,13 +26,12 @@ export const offerReducer = (state = {}, action) => {
   }
 };
 
-
 export const theBestReducer = (state = {}, action) => {
   switch (action.type) {
     case OFFERTHEBEST_OBJCECT_REQUEST:
       return { loading: true };
     case OFFERTHEBEST_OBJCECT_SUCCESS:
-      return { loading: false, success: true, offer2: action.payload };
+      return { loading: false, success: true, object: action.payload };
     case OFFERTHEBEST_OBJCECT_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -37,14 +39,26 @@ export const theBestReducer = (state = {}, action) => {
   }
 };
 
-
 export const ourChoiceReducer = (state = {}, action) => {
   switch (action.type) {
     case OFFEROURCHOICE_OBJCECT_REQUEST:
       return { loading: true };
     case OFFEROURCHOICE_OBJCECT_SUCCESS:
-      return { loading: false, success: true, offer1: action.payload };
+      return { loading: false, success: true, object: action.payload };
     case OFFEROURCHOICE_OBJCECT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const offerByIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case OFFER_BY_ID_OBJCECT_REQUEST:
+      return { loading: true };
+    case OFFER_BY_ID_OBJCECT_SUCCESS:
+      return { loading: false, success: true, object: action.payload };
+    case OFFER_BY_ID_OBJCECT_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

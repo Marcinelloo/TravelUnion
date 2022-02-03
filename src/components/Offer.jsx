@@ -18,7 +18,7 @@ const Offer = ({ data }) => {
 
   function offerPageHandler(event) {
     event.preventDefault();
-    navigate(`/:${data.id}`);
+    navigate(`/offer/${data._id}`);
   }
 
   return (

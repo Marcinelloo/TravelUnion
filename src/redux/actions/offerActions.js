@@ -9,6 +9,9 @@ import {
   OFFERTHEBEST_OBJCECT_FAIL,
   OFFERTHEBEST_OBJCECT_REQUEST,
   OFFERTHEBEST_OBJCECT_SUCCESS,
+  OFFER_BY_ID_OBJCECT_REQUEST,
+  OFFER_BY_ID_OBJCECT_SUCCESS,
+  OFFER_BY_ID_OBJCECT_FAIL,
 } from "../constants/offerConstants";
 
 export const offer = (countryId) => async (dispatch) => {
@@ -68,5 +71,26 @@ export const theBest = () => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: OFFERTHEBEST_OBJCECT_FAIL, payload: message });
+  }
+};
+
+export const offerById = (offerId) => async (dispatch) => {
+  dispatch({
+    type: OFFER_BY_ID_OBJCECT_REQUEST,
+    payload: offerId,
+  });
+
+  try {
+    const offerData = await axios.get(
+      `${process.env.REACT_APP_SERVER_LINK}/offer/get/${offerId}`
+    );
+
+    dispatch({ type: OFFER_BY_ID_OBJCECT_SUCCESS, payload: offerData.data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: OFFER_BY_ID_OBJCECT_FAIL, payload: message });
   }
 };

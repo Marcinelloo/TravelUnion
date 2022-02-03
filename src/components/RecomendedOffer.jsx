@@ -17,7 +17,7 @@ const RecomendedOffer = () => {
   }, []);
 
   useEffect(() => {
-    if (ourChoiceInfo.loading === false) setData1(ourChoiceInfo.offer1);
+    if (ourChoiceInfo.loading === false) setData1(ourChoiceInfo.object);
   }, [ourChoiceInfo]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const RecomendedOffer = () => {
   }, []);
 
   useEffect(() => {
-    if (theBestInfo.loading === false) setData2(theBestInfo.offer2);
+    if (theBestInfo.loading === false) setData2(theBestInfo.object);
   }, [theBestInfo]);
 
   function createTheBest() {

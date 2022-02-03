@@ -20,7 +20,7 @@ const OffersList = ({ country, city, dateFrom, dateBack }) => {
 
   useEffect(() => {
     if (offerInfo.loading === false) {
-      setData(offerInfo.offer);
+      setData(offerInfo.object);
     }
   }, [offerInfo]);
 

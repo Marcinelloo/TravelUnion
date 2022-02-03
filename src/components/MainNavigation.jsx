@@ -8,8 +8,10 @@ import { useEffect, useState } from "react";
 import { BsSun, BsSunFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { currency } from "../redux/actions/currencyActions";
+import { Link, useNavigate } from "react-router-dom";
 
 const MainNavigation = () => {
+  const navigate = useNavigate();
   const [startcolorMode, setStartColorMode] = useState("light");
   const [startLanguage, setStartLanguage] = useState("PL");
   const [startCurrency, setStartCurrency] = useState("PLN");
@@ -47,14 +49,22 @@ const MainNavigation = () => {
     <>
       <Navbar bg={colorMode}>
         <Container>
-          <Navbar.Brand href={`#${startLanguage}`}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <span
-              style={{ color: "#A93226", fontWeight: "bold", fontSize: "40px" }}
+              style={{
+                color: "#A93226",
+                fontWeight: "bold",
+                fontSize: "40px",
+              }}
             >
               Tra
             </span>
             <span
-              style={{ color: "#76448A", fontWeight: "bold", fontSize: "40px" }}
+              style={{
+                color: "#76448A",
+                fontWeight: "bold",
+                fontSize: "40px",
+              }}
             >
               vel
             </span>
@@ -68,11 +78,15 @@ const MainNavigation = () => {
               UN
             </span>
             <span
-              style={{ color: "#B7950B", fontWeight: "bold", fontSize: "40px" }}
+              style={{
+                color: "#B7950B",
+                fontWeight: "bold",
+                fontSize: "40px",
+              }}
             >
               ION
             </span>
-          </Navbar.Brand>
+          </Link>
           <Nav className="justify-content-end flex-grow-1 p-3">
             <NavDropdown align="end" title={startLanguage} id="dropdown-1">
               <NavDropdown.Item
