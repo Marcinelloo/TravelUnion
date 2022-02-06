@@ -9,8 +9,6 @@ const PhotoGalery = ({ data }) => {
         gridTemplateRows: "repeat(3, 100px)",
         gridColumnGap: "0px",
         gridRowGap: "0px",
-        marginLeft: "10%",
-        marginTop: "6%",
         gap: "15px",
       }}
     >

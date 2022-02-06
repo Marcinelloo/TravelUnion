@@ -1,7 +1,10 @@
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { currencyReducer } from "./redux/reducers/currencyReducer";
-import { countryReducer } from "./redux/reducers/countryReducer";
+import {
+  countryByNameReducer,
+  countryReducer,
+} from "./redux/reducers/countryReducer";
 import { cityReducer } from "./redux/reducers/cityReducer";
 import {
   offerReducer,
@@ -20,6 +23,7 @@ const reducer = combineReducers({
   theBest: theBestReducer,
   ourChoice: ourChoiceReducer,
   offerById: offerByIdReducer,
+  countryByName: countryByNameReducer,
 });
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
+import MessageQueue, { useMessageQueue } from "../MessageQueue/Index";
 
 const BottomPage = () => {
-  const [email, setEmail] = useState("");
+  const input = useRef();
+  const { addMessage, removeMessage, messages } = useMessageQueue();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    document.getElementById("email").reset();
+    addMessage(
+      `Succes, check ${input.current.value} cuz we have a discount for you!`,
+      "success"
+    );
+    input.current.value = "";
   };
 
   return (
     <>
+      <MessageQueue messages={messages} removeMessage={removeMessage} />
       <div
         style={{
           marginTop: "5%",
@@ -105,7 +112,14 @@ const BottomPage = () => {
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "20px",
+          }}
+        >
           <div
             style={{
               inlineSize: "320px",
@@ -124,10 +138,10 @@ const BottomPage = () => {
               onSubmit={submitHandler}
             >
               <input
+                ref={input}
                 type="email"
                 placeholder="example@example.com"
                 required
-                onChange={(e) => setEmail(e.target.value)}
                 style={{
                   height: "auto",
                   border: "1px solid grey",

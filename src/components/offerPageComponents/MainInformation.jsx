@@ -11,8 +11,9 @@ const MainInformation = ({ data }) => {
           style={{
             display: "flex",
             paddingTop: "5%",
-            paddingLeft: "10%",
+            paddingLeft: "3%",
             justifyContent: "space-between",
+            flexWrap: "wrap",
           }}
         >
           <div style={{ display: "flex", gap: "15px" }}>
@@ -36,7 +37,7 @@ const MainInformation = ({ data }) => {
           </Button>
         </Container>
       </div>
-      <div style={{ paddingLeft: "22%" }}>
+      <div style={{ paddingLeft: "14%" }}>
         <i className="fas fa-map-marker-alt" /> {data.address}
       </div>
     </div>

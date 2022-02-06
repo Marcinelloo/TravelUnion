@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/esm/Container";
@@ -8,13 +8,17 @@ import Button from "react-bootstrap/esm/Button";
 import OffersList from "./OffersList";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { countryExist } from "../redux/actions/countryActions";
 import { cityExist } from "../redux/actions/cityActions";
+import { country, countryExist } from "../redux/actions/countryActions";
+import Message from "./Message";
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
-  const [countryData, setCountryData] = useState(null);
+  const [countryData, setCountryData] = useState("notExist");
   const countryInfo = useSelector((state) => state.country);
+
+  const [currentCountryData, setCurrentCountryData] = useState("notExist");
+  const currentCountryInfo = useSelector((state) => state.countryByName);
 
   const [cityData, setCityData] = useState(null);
   const cityInfo = useSelector((state) => state.city);
@@ -26,31 +30,65 @@ const SearchPanel = () => {
   const [adult, setAdult] = useState(0);
   const [roomsNumber, setRoomsNumber] = useState(0);
 
-  const [country, setCountry] = useState("Polska");
-  const [goDate, setGoDate] = useState(currentDate);
-  const [backDate, setBackDate] = useState(currentDate);
+  const [currentCountry, setCurrentCountry] = useState("Polska");
+  const goDate = useRef(currentDate);
+  const backDate = useRef(currentDate);
+
+  //wczytanie wszytskich
+  useEffect(() => {
+    dispatch(country());
+  }, []);
 
   useEffect(() => {
-    dispatch(countryExist(country));
-  }, [country]);
-
-  useEffect(() => {
-    if (countryInfo.loading === false) {
+    if (countryInfo.loading === false && countryInfo.object !== "notExist") {
       setCountryData(countryInfo.object);
+    } else {
+      setCountryData("notExist");
     }
   }, [countryInfo.loading]);
 
+  //wczytanie jednego wybranego
   useEffect(() => {
-    if (countryData !== null) {
-      dispatch(cityExist(countryData[0]._id));
-    }
-  }, [countryData]);
+    dispatch(countryExist(currentCountry));
+  }, [currentCountry]);
 
   useEffect(() => {
-    if (cityInfo.loading === false && countryData !== null) {
+    if (
+      currentCountryInfo.loading === false &&
+      currentCountryInfo.object !== "notExist"
+    ) {
+      setCurrentCountryData(currentCountryInfo.object);
+    } else {
+      setCurrentCountryData("notExist");
+    }
+  }, [currentCountryInfo.loading]);
+
+  //wczytanie miast
+  useEffect(() => {
+    if (currentCountryData !== "notExist") {
+      dispatch(cityExist(currentCountryData[0]._id));
+    }
+  }, [currentCountryData]);
+
+  useEffect(() => {
+    if (cityInfo.loading === false) {
       setCityData(cityInfo.object);
     }
   }, [cityInfo.loading]);
+
+  function createCountryToSearch() {
+    return countryData.map((data, _id) => {
+      return (
+        <Dropdown.Item
+          key={_id}
+          style={{ fontSize: "12px" }}
+          onClick={() => setCurrentCountry(data.name)}
+        >
+          {data.name}
+        </Dropdown.Item>
+      );
+    });
+  }
 
   return (
     <>
@@ -81,35 +119,43 @@ const SearchPanel = () => {
               minWidth: "150px",
             }}
           >
-            <Form.Label
-              style={{
-                borderColor: "white",
-                backgroundColor: "transparen",
-                outline: "none",
-                marginLeft: "3%",
-                marginBottom: "1%",
-              }}
-            >
-              Jaki kraj cie interesuje?
-            </Form.Label>
-            <span style={{ display: "flex" }}>
-              <i
-                style={{ marginLeft: "2%", marginTop: "6%" }}
-                className="fa fa-search"
-              ></i>
-              <Form.Control
-                type="text"
-                onChange={(city) => setCountry(city.target.value)}
-                placeholder="Wpisz państwo"
+            <Dropdown>
+              <Form.Label
                 style={{
-                  fontSize: "12px",
-                  borderRadius: "40px 0px 0px 40px",
                   borderColor: "white",
-                  backgroundColor: "transparen",
+                  backgroundColor: "transparent",
                   outline: "none",
+                  marginLeft: "3%",
+                  marginBottom: "1%",
                 }}
-              />
-            </span>
+              >
+                Jaki kraj cie interesuje?
+              </Form.Label>
+              <span style={{ display: "flex", paddingLeft: "10%" }}>
+                <i
+                  style={{ marginLeft: "2%", marginTop: "6%" }}
+                  className="fa fa-search"
+                ></i>
+                <Dropdown.Toggle
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "white",
+                    fontSize: "12px",
+                  }}
+                >
+                  {currentCountry}
+                </Dropdown.Toggle>
+                <Dropdown.Menu
+                  align={{ lg: "end" }}
+                  style={{
+                    borderRadius: "20px",
+                  }}
+                >
+                  {countryData !== "notExist" ? createCountryToSearch() : ""}
+                </Dropdown.Menu>
+              </span>
+            </Dropdown>
           </Form.Group>
           <Form.Group
             controlId="date"
@@ -127,7 +173,7 @@ const SearchPanel = () => {
               type="date"
               name="dob"
               value={goDate}
-              onChange={(date) => setGoDate(date.target.value)}
+              onChange={(date) => (goDate.current = date.target.value)}
               style={{ marginLeft: "10%", fontSize: "12px" }}
             />
           </Form.Group>
@@ -148,7 +194,7 @@ const SearchPanel = () => {
               type="date"
               name="dob"
               value={backDate}
-              onChange={(date) => setBackDate(date.target.value)}
+              onChange={(date) => (backDate.current = date.target.value)}
               style={{ marginLeft: "10%", fontSize: "12px" }}
             />
           </Form.Group>
@@ -273,15 +319,15 @@ const SearchPanel = () => {
           </Form.Group>
         </Card>
       </Container>
-      {countryData !== null && cityData !== null ? (
+      {currentCountryData !== "notExist" && cityData !== null ? (
         <OffersList
-          country={countryData}
+          country={currentCountryData}
           city={cityData}
-          dateFrom={goDate}
-          dateBack={backDate}
+          dateFrom={goDate.current}
+          dateBack={backDate.current}
         />
       ) : (
-        " "
+        ""
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import Dropdown from "react-bootstrap/esm/Dropdown";
 import Container from "react-bootstrap/esm/Container";
@@ -6,6 +6,7 @@ import OfferCountry from "./OfferCountry";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { offer } from "../redux/actions/offerActions";
+import MessageBox from "./Message";
 
 const OffersList = ({ country, city, dateFrom, dateBack }) => {
   const [sortBy, setSortBy] = useState("sortuj");
@@ -25,25 +26,35 @@ const OffersList = ({ country, city, dateFrom, dateBack }) => {
   }, [offerInfo]);
 
   function createOffers() {
+    let counter = 0;
+
+    city.map((city) => {
+      counter += data.filter((data) => data.city === city._id).length;
+    });
+
+    if (counter === 0) return <MessageBox type="danger" info="tu bedzie inf" />;
+
     return city.map((city, _id) => {
-      return (
-        <div key={_id}>
-          <h3 style={{ marginTop: "4%", marginLeft: "2%" }}>
-            Miasto: {city.cityName}
-          </h3>
-          <Container
-            style={{
-              display: "grid",
-              justifyContent: "center",
-            }}
-          >
-            <OfferCountry
-              offer={data.filter((data) => data.city === city._id)}
-              sort={sortBy}
-            />
-          </Container>
-        </div>
-      );
+      if (data.filter((data) => data.city === city._id).length > 0) {
+        return (
+          <div key={_id}>
+            <h3 style={{ marginTop: "4%", marginLeft: "2%" }}>
+              Miasto: {city.cityName}
+            </h3>
+            <Container
+              style={{
+                display: "grid",
+                justifyContent: "center",
+              }}
+            >
+              <OfferCountry
+                offer={data.filter((data) => data.city === city._id)}
+                sort={sortBy}
+              />
+            </Container>
+          </div>
+        );
+      }
     });
   }
 

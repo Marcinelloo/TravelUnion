@@ -12,13 +12,13 @@ export const cityExist = (countryId) => async (dispatch) => {
   });
 
   try {
-   
     const cityData = await axios.get(
       `${process.env.REACT_APP_SERVER_LINK}/city/get/${countryId}`
     );
 
-    
-    dispatch({ type: CITY_OBJCECT_SUCCESS, payload: cityData.data });
+    if (cityData.data.length > 0) {
+      dispatch({ type: CITY_OBJCECT_SUCCESS, payload: cityData.data });
+    } else dispatch({ type: CITY_OBJCECT_SUCCESS, payload: "notExist" });
   } catch (error) {
     const message =
       error.response && error.response.data.message

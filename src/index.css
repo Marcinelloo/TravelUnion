@@ -69,3 +69,8 @@ button:focus::after {
     visibility: visible;
   }
 }
+
+
+.danger{
+  background-color: red;
+}
