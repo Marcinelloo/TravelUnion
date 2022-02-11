@@ -1,24 +1,17 @@
 import React from "react";
-import { Container } from "react-bootstrap";
-import Description from "./Description";
-import PhotoGalery from "./PhotoGalery";
+import styled from "styled-components";
 
-const Body = ({ data, data2 }) => {
-  return (
-    <Container
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(280px,400px)",
-        justifyContent: "center",
-        marginTop: "6%",
-        backgroundColor: "#FBFBFB",
-        gap: "80px",
-      }}
-    >
-      <PhotoGalery data={data} />
-      <Description data={data} helpData={data2} />
-    </Container>
-  );
+const BigContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 400px));
+  justify-content: center;
+  margin-top: 6%;
+  background-color: #fbfbfb;
+  gap: 10%;
+`;
+
+const Body = (props) => {
+  return <BigContainer>{props.children}</BigContainer>;
 };
 
 export default Body;

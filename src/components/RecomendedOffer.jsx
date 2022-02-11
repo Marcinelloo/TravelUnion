@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { ourChoice, theBest } from "../redux/actions/offerActions";
-
 import Offer from "./Offer";
 
 const RecomendedOffer = () => {

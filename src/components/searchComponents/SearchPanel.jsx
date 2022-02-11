@@ -1,16 +1,35 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/esm/Button";
-import OffersList from "./OffersList";
+import OffersList from "../OffersList";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { cityExist } from "../redux/actions/cityActions";
-import { country, countryExist } from "../redux/actions/countryActions";
-import Message from "./Message";
+import { cityExist } from "../../redux/actions/cityActions";
+import { country, countryExist } from "../../redux/actions/countryActions";
+import { useLayoutEffect } from "react";
+import styled from "styled-components";
+
+const Wraper = styled.section`
+  width: 100%;
+  height: 100%;
+  margin-top: 2%;
+  algin-items: center;
+  display: flex;
+  justify-content: center;
+`;
+
+const Card = styled.div`
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+  min-width: 700px;
+  display: flex;
+  flex-direction: row;
+  padding: 1% 1% 1% 2.5%;
+  min-height: 80px;
+`;
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
@@ -31,11 +50,12 @@ const SearchPanel = () => {
   const [roomsNumber, setRoomsNumber] = useState(0);
 
   const [currentCountry, setCurrentCountry] = useState("Polska");
-  const goDate = useRef(currentDate);
-  const backDate = useRef(currentDate);
+
+  const [goDate, setGoDate] = useState(currentDate);
+  const [backDate, setBackDate] = useState(currentDate);
 
   //wczytanie wszytskich
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(country());
   }, []);
 
@@ -48,7 +68,7 @@ const SearchPanel = () => {
   }, [countryInfo.loading]);
 
   //wczytanie jednego wybranego
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(countryExist(currentCountry));
   }, [currentCountry]);
 
@@ -92,25 +112,8 @@ const SearchPanel = () => {
 
   return (
     <>
-      <Container
-        style={{
-          marginTop: "2%",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Card
-          style={{
-            boxShadow: " 0 2px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "40px",
-            minWidth: "700px",
-            display: "flex",
-            flexDirection: "row",
-            paddingLeft: "1%",
-            paddingTop: "1%",
-            minHeight: "80px",
-          }}
-        >
+      <Wraper>
+        <Card>
           <Form.Group
             controlId="city"
             style={{
@@ -173,7 +176,7 @@ const SearchPanel = () => {
               type="date"
               name="dob"
               value={goDate}
-              onChange={(date) => (goDate.current = date.target.value)}
+              onChange={(date) => setGoDate(date.target.value)}
               style={{ marginLeft: "10%", fontSize: "12px" }}
             />
           </Form.Group>
@@ -194,7 +197,7 @@ const SearchPanel = () => {
               type="date"
               name="dob"
               value={backDate}
-              onChange={(date) => (backDate.current = date.target.value)}
+              onChange={(date) => setBackDate(date.target.value)}
               style={{ marginLeft: "10%", fontSize: "12px" }}
             />
           </Form.Group>
@@ -318,13 +321,13 @@ const SearchPanel = () => {
             </Dropdown>
           </Form.Group>
         </Card>
-      </Container>
+      </Wraper>
       {currentCountryData !== "notExist" && cityData !== null ? (
         <OffersList
           country={currentCountryData}
           city={cityData}
-          dateFrom={goDate.current}
-          dateBack={backDate.current}
+          dateFrom={goDate}
+          dateBack={backDate}
         />
       ) : (
         ""

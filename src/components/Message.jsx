@@ -5,10 +5,12 @@ const MessageBox = ({ type, info }) => {
     <div
       className={type}
       style={{
-        boxShadow: " 0 2px 8px black",
-        maxWidth: "300px",
+        boxShadow: " 0 2px 8px red",
+        maxWidth: "400px",
         maxHeight: "100px",
-        borderRadius: "40px",
+        borderRadius: "20px",
+        fontStyle: "italic",
+        fontSize: "12px",
       }}
     >
       {info}

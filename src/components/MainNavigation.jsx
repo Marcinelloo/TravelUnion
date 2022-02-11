@@ -1,27 +1,42 @@
 import "../index.css";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import { useEffect, useState } from "react";
-
-import { BsSun, BsSunFill } from "react-icons/bs";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currency } from "../redux/actions/currencyActions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import LogoSide from "./NavComponents/LogoSide";
+import NavItems from "./NavComponents/NavItems";
+import Currency from "./NavComponents/Currency";
+import styled from "styled-components";
+import LoginInfo from "./NavComponents/LoginInfo";
+
+const Wraper = styled.section`
+  background-color: #dee2e6;
+`;
+
+const BigContainer = styled.section`
+  padding: 1% 2% 1% 2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const MiddleContainer = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding-right: 30px;
+`;
 
 const MainNavigation = () => {
-  const navigate = useNavigate();
-  const [startcolorMode, setStartColorMode] = useState("light");
-  const [startLanguage, setStartLanguage] = useState("PL");
-  const [startCurrency, setStartCurrency] = useState("PLN");
   const [colorMode, setColorMode] = useState("light");
 
   const dispatch = useDispatch();
   const [data, setData] = useState("null");
   const currencyInfo = useSelector((state) => state.currency);
+  const { userInfo } = useSelector((state) => state.userSignin);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(currency());
   }, []);
 
@@ -31,89 +46,30 @@ const MainNavigation = () => {
     }
   }, [currencyInfo.loading]);
 
-  function createCurrency() {
-    return data.map((element) => {
-      return (
-        <NavDropdown.Item
-          key={element._id}
-          onClick={() => setStartCurrency(element.shortcut)}
-        >
-          {element.shortcut} -{" "}
-          {startLanguage === "PL" ? element.polishName : element.englishName}
-        </NavDropdown.Item>
-      );
-    });
-  }
-
   return (
-    <>
-      <Navbar bg={colorMode}>
-        <Container>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <span
-              style={{
-                color: "#A93226",
-                fontWeight: "bold",
-                fontSize: "40px",
-              }}
-            >
-              Tra
-            </span>
-            <span
-              style={{
-                color: "#76448A",
-                fontWeight: "bold",
-                fontSize: "40px",
-              }}
-            >
-              vel
-            </span>
-            <span
-              style={{
-                color: "#1F618D ",
-                fontWeight: "bold",
-                fontSize: "40px",
-              }}
-            >
-              UN
-            </span>
-            <span
-              style={{
-                color: "#B7950B",
-                fontWeight: "bold",
-                fontSize: "40px",
-              }}
-            >
-              ION
-            </span>
-          </Link>
-          <Nav className="justify-content-end flex-grow-1 p-3">
-            <NavDropdown align="end" title={startLanguage} id="dropdown-1">
-              <NavDropdown.Item
-                href={`#${startLanguage}`}
-                onClick={() => setStartLanguage("PL")}
-              >
-                PL
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                href={`#${startLanguage}`}
-                onClick={() => setStartLanguage("EN")}
-              >
-                EN
-              </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown align="end" title={startCurrency} id="dropdown-2">
-              <Container>{data !== "null" ? createCurrency() : ""}</Container>
-            </NavDropdown>
-          </Nav>
-          {colorMode === "light" ? (
-            <BsSunFill onClick={() => setColorMode("dark")} />
+    <Wraper>
+      <BigContainer>
+        <LogoSide />
+        <MiddleContainer>
+          <NavItems>{data !== "null" ? <Currency data={data} /> : ""}</NavItems>
+          {userInfo !== null && userInfo !== undefined ? (
+            <LoginInfo name={userInfo.name} />
           ) : (
-            <BsSun onClick={() => setColorMode("light")} />
+            <Link
+              className="underline-animation"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                fontWeight: "bold",
+              }}
+              to="/signin"
+            >
+              Zaloguj
+            </Link>
           )}
-        </Container>
-      </Navbar>
-    </>
+        </MiddleContainer>
+      </BigContainer>
+    </Wraper>
   );
 };
 

@@ -1,7 +1,42 @@
 import React, { useRef } from "react";
-import { useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import MessageQueue, { useMessageQueue } from "../MessageQueue/Index";
+import styled from "styled-components";
+
+const Wraper = styled.div`
+  margin-top: 5%;
+  padding-top: 3%;
+  padding-left: 10%;
+  background-color: #fbfbfb;
+  padding-bottom: 3%;
+`;
+const BigContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 280px);
+  justify-content: center;
+  padding-bottom: 5%;
+  gap: 10px;
+`;
+
+const MiddleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+
+const SmallContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+`;
+
+const TextDisplay = styled.div`
+  inline-size: 320px;
+  overflow-wrap: break-word;
+  font-weight: bold;
+  font-style: italic;
+`;
 
 const BottomPage = () => {
   const input = useRef();
@@ -19,24 +54,8 @@ const BottomPage = () => {
   return (
     <>
       <MessageQueue messages={messages} removeMessage={removeMessage} />
-      <div
-        style={{
-          marginTop: "5%",
-          paddingTop: "3%",
-          paddingLeft: "10%",
-          backgroundColor: "#FBFBFB",
-          paddingBottom: "3%",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, 280px)",
-            justifyContent: "center",
-            paddingBottom: "5%",
-            gap: "10px",
-          }}
-        >
+      <Wraper>
+        <BigContainer>
           <div>
             <h4>O TravelUNION</h4>
             <div style={{ display: "grid", paddingLeft: "7%" }}>
@@ -111,26 +130,12 @@ const BottomPage = () => {
               <i className="fab fa-linkedin-in animateClick"></i>
             </div>
           </div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              inlineSize: "320px",
-              overflowWrap: "break-word",
-              fontWeight: "bold",
-              fontStyle: "italic",
-            }}
-          >
+        </BigContainer>
+        <MiddleContainer>
+          <TextDisplay>
             Zapisz się do newslettera, a otrzymasz 10% rabatu na pierwsza
             wycieczke
-          </div>
+          </TextDisplay>
           <div>
             <form
               id="email"
@@ -163,13 +168,11 @@ const BottomPage = () => {
               </Button>
             </form>
           </div>
-        </div>
-      </div>
-      <div
-        style={{ display: "flex", justifyContent: "center", fontSize: "12px" }}
-      >
+        </MiddleContainer>
+      </Wraper>
+      <SmallContainer>
         Copyright 2022 TravelUNION | Wszelkie prawa zastrzeżone.
-      </div>
+      </SmallContainer>
     </>
   );
 };

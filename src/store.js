@@ -12,8 +12,22 @@ import {
   ourChoiceReducer,
   offerByIdReducer,
 } from "./redux/reducers/offerReducers";
+import {
+  userRegisterReducer,
+  userSigninReducer,
+} from "./redux/reducers/userReducer";
+import {
+  opinionByOfferReducer,
+  opinionByUserReducer,
+} from "./redux/reducers/opinionReducers";
 
-const initialState = {};
+const initialState = {
+  userSignin: {
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
+  },
+};
 
 const reducer = combineReducers({
   currency: currencyReducer,
@@ -24,6 +38,10 @@ const reducer = combineReducers({
   ourChoice: ourChoiceReducer,
   offerById: offerByIdReducer,
   countryByName: countryByNameReducer,
+  userSignin: userSigninReducer,
+  userRegister: userRegisterReducer,
+  offerOpinions: opinionByOfferReducer,
+  userOpinions: opinionByUserReducer,
 });
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

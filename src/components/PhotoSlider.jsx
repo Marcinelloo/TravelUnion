@@ -1,21 +1,24 @@
+import styled from "styled-components";
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import Container from "react-bootstrap/esm/Container";
 
-import photo1 from "../photos/photo1.jpg";
-import photo2 from "../photos/photo2.jpg";
-import photo3 from "../photos/photo3.jpg";
+import photo1 from "../photos/PhotoHome_1.jpg";
+import photo2 from "../photos/PhotoHome_2.jpg";
+import photo3 from "../photos/PhotoHome_3.jpg";
+
+const Wraper = styled.div`
+  margin: 0% 0% 5% 0%;
+`;
 
 const PhotoSlider = () => {
   return (
     <>
-      <Container style={{ marginTop: "2%" }}>
-        <Carousel indicators={false} touch fade interval={4000}>
+      <Wraper>
+        <Carousel indicators={false} touch fade interval={6000}>
           <Carousel.Item bsPrefix="animationOne carousel-item">
             <img
               style={{
-                height: "500px",
-                borderRadius: "20px",
+                height: "400px",
               }}
               className="d-block w-100"
               src={photo1}
@@ -25,18 +28,20 @@ const PhotoSlider = () => {
               bsPrefix="carousel-caption"
               style={{ left: "-20%", right: "20%" }}
             >
-              <h3 className="animationOne">
+              <h2
+                className="animation"
+                style={{ color: "black", fontWeight: "bold" }}
+              >
                 {" "}
-                Jakie miejsce jest twoim marzeniem?
-              </h3>
+                Niezapomniane chwile!
+              </h2>
             </Carousel.Caption>
           </Carousel.Item>
 
           <Carousel.Item bsPrefix="carousel-item">
             <img
               style={{
-                height: "500px",
-                borderRadius: "20px",
+                height: "400px",
               }}
               className="d-block w-100"
               src={photo2}
@@ -47,14 +52,18 @@ const PhotoSlider = () => {
               bsPrefix="carousel-caption"
               style={{ left: "-20%", right: "20%" }}
             >
-              <h3>Jakie miejsce jest twoim marzeniem?</h3>
+              <h2
+                className="animation"
+                style={{ color: "White", fontWeight: "bold" }}
+              >
+                Zwiedź z nami cały Świat!
+              </h2>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
               style={{
-                height: "500px",
-                borderRadius: "20px",
+                height: "400px",
               }}
               className="d-block w-100"
               src={photo3}
@@ -64,13 +73,16 @@ const PhotoSlider = () => {
               bsPrefix="carousel-caption"
               style={{ left: "-20%", right: "20%" }}
             >
-              <h3 style={{ color: "white" }}>
+              <h2
+                className="animation"
+                style={{ color: "white", fontWeight: "bold" }}
+              >
                 Jakie miejsce jest twoim marzeniem?
-              </h3>
+              </h2>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-      </Container>
+      </Wraper>
     </>
   );
 };

@@ -1,10 +1,18 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
 import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/esm/Container";
 import changeMonth from "../functions/changeDate";
 import Rating from "./Rating";
 import Button from "react-bootstrap/esm/Button";
+import styled from "styled-components";
+
+const Card = styled.div`
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 40px;
+  height: 300px;
+  width: 300px;
+  background-color: #dD3D3D3;
+`;
 
 const Offer = ({ data }) => {
   const navigate = useNavigate();
@@ -23,15 +31,7 @@ const Offer = ({ data }) => {
 
   return (
     <>
-      <Card
-        style={{
-          boxShadow: " 0 2px 8px rgba(0, 0, 0, 0.2)",
-          borderRadius: "40px",
-          height: "300px",
-          width: "300px",
-          backgroundColor: "# dD3D3D3",
-        }}
-      >
+      <Card>
         <img
           src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/274545138.jpg?k=5b1b442023dc51205fcd23824c95f4aaae4ecd9f3f93b9636ff6d5f08f96454f&o=&hp=1"
           alt={data.hotelName}

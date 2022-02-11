@@ -8,10 +8,9 @@ import RegisterPage from "./pages/RegisterPage";
 import SigninPage from "./pages/SigninPage";
 
 function App() {
-
   return (
     <div>
-   
+      
       <MainNavigation />
       <Routes>
         <Route path="/" element={<HomePage />}></Route>

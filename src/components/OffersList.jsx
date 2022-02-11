@@ -32,7 +32,13 @@ const OffersList = ({ country, city, dateFrom, dateBack }) => {
       counter += data.filter((data) => data.city === city._id).length;
     });
 
-    if (counter === 0) return <MessageBox type="danger" info="tu bedzie inf" />;
+    if (counter === 0)
+      return (
+        <MessageBox
+          type="danger"
+          info="Właśnie opracowujemy dla ciebie nowe oferty, spróbuj wyszukać w innym kraju!"
+        />
+      );
 
     return city.map((city, _id) => {
       if (data.filter((data) => data.city === city._id).length > 0) {
