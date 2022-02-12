@@ -13,13 +13,25 @@ const LoginInfo = ({ name }) => {
     navigate("/");
   }
 
-  function moveToMenuHandler() {
-    navigate("/userMenu");
+  function moveToUserData() {
+    navigate("/userInfo");
+  }
+  function moveToUserReservations() {
+    navigate("/userReservations");
+  }
+
+  function moveToUserTravels() {
+    navigate("/userTravels");
+  }
+
+  function moveToUserComments() {
+    navigate("/userComments");
   }
 
   return (
     <Dropdown style={{ borderRadius: "10px" }}>
       <Dropdown.Toggle
+        className="animateClick"
         style={{
           color: "black",
           backgroundColor: "transparent",
@@ -39,13 +51,20 @@ const LoginInfo = ({ name }) => {
           style={{
             borderRadius: "10px 10px 0px 0px",
           }}
-          onClick={() => moveToMenuHandler()}
+          onClick={() => moveToUserData()}
         >
-          Menu
+          Moje dane
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => moveToUserReservations()}>
+          Moje rezerwacje
+        </Dropdown.Item>
+        <Dropdown.Item onClick={() => moveToUserComments()}>
+          Moje komentarze
         </Dropdown.Item>
         <Dropdown.Item
           style={{
             borderRadius: "0px 0px 10px 10px",
+            color: "red",
           }}
           onClick={() => logoutHandler()}
         >

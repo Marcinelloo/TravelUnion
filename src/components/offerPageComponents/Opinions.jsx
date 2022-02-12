@@ -22,10 +22,10 @@ const Opinions = ({ data }) => {
           gap: "50px",
         }}
       >
-        {data.map((data, _id) => {
+        {data.map((data) => {
           return (
             <div
-              key={_id}
+              key={data._id}
               style={{
                 boxShadow: " 0 2px 8px black",
                 borderRadius: "20px",
@@ -37,12 +37,12 @@ const Opinions = ({ data }) => {
               }}
             >
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <div>Imie: {data.imie}</div>
+                <div>Imie: {data.name}</div>
                 <div>
-                  <Rating stars={data.stars} />
+                  <Rating stars={data.rate} />
                 </div>
               </div>
-              <div>Opis: {data.opis}</div>
+              <div>Opis: {data.description}</div>
             </div>
           );
         })}

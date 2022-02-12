@@ -4,7 +4,7 @@ import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/esm/Button";
-import OffersList from "../OffersList";
+import OffersList from "../offerComponents/OffersList";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { cityExist } from "../../redux/actions/cityActions";

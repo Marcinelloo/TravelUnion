@@ -12,6 +12,7 @@ const Currency = ({ data }) => {
   return (
     <Dropdown style={{ borderRadius: "10px" }}>
       <Dropdown.Toggle
+        className="animateClick"
         style={{
           color: "black",
           backgroundColor: "transparent",

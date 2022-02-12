@@ -5,8 +5,8 @@ import Container from "react-bootstrap/esm/Container";
 import OfferCountry from "./OfferCountry";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { offer } from "../redux/actions/offerActions";
-import MessageBox from "./Message";
+import { offer } from "../../redux/actions/offerActions";
+import MessageBox from "../Message";
 
 const OffersList = ({ country, city, dateFrom, dateBack }) => {
   const [sortBy, setSortBy] = useState("sortuj");

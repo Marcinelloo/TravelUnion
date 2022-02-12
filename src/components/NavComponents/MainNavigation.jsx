@@ -1,13 +1,12 @@
-import "../index.css";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { currency } from "../redux/actions/currencyActions";
+import { currency } from "../../redux/actions/currencyActions";
 import { Link } from "react-router-dom";
-import LogoSide from "./NavComponents/LogoSide";
-import NavItems from "./NavComponents/NavItems";
-import Currency from "./NavComponents/Currency";
+import LogoSide from "./LogoSide";
+import NavItems from "./NavItems";
+import Currency from "./Currency";
 import styled from "styled-components";
-import LoginInfo from "./NavComponents/LoginInfo";
+import LoginInfo from "./LoginInfo";
 
 const Wraper = styled.section`
   background-color: #dee2e6;
@@ -53,7 +52,7 @@ const MainNavigation = () => {
         <MiddleContainer>
           <NavItems>{data !== "null" ? <Currency data={data} /> : ""}</NavItems>
           {userInfo !== null && userInfo !== undefined ? (
-            <LoginInfo name={userInfo.name} />
+            <LoginInfo  name={userInfo.name} />
           ) : (
             <Link
               className="underline-animation"

@@ -1,11 +1,37 @@
 import React from "react";
 import { Container, Button } from "react-bootstrap";
-
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import MessageQueue, { useMessageQueue } from "../../MessageQueue/Index";
+import { addReservation } from "../../redux/actions/reservationActions";
 import Rating from "../Rating";
 
-const MainInformation = ({ data }) => {
+const MainInformation = ({ data, offerId }) => {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector((state) => state.userSignin);
+  const { addMessage, removeMessage, messages } = useMessageQueue();
+
+  function messageHandler(e) {
+    e.preventDefault();
+    if (userInfo !== null && userInfo !== undefined) addMessageHandler();
+    else errorMessageHandler();
+  }
+
+  function errorMessageHandler() {
+    addMessage(`Aby zarezerowac oferte musisz sie zalogowac!`, "error");
+  }
+
+  function addMessageHandler() {
+    dispatch(addReservation(userInfo._id, offerId, new Date()));
+    addMessage(
+      `Oferta zostal pomyslnie dla ciebie zarezerowana, znajdziesz ja w swoich rezerwacjach!`,
+      "success"
+    );
+  }
+
   return (
     <div>
+      <MessageQueue messages={messages} removeMessage={removeMessage} />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Container
           style={{
@@ -32,6 +58,7 @@ const MainInformation = ({ data }) => {
               marginRight: "10%",
               borderRadius: "20px 0px 10px 10px",
             }}
+            onClick={(event) => messageHandler(event)}
           >
             Zarezerwuj
           </Button>

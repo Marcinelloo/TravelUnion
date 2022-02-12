@@ -20,6 +20,12 @@ import {
   opinionByOfferReducer,
   opinionByUserReducer,
 } from "./redux/reducers/opinionReducers";
+import {
+  addReservationReducer,
+  deleteReservationReducer,
+  getUserReservationReducer,
+  updatetUserReservationReducer,
+} from "./redux/reducers/reservationReducer";
 
 const initialState = {
   userSignin: {
@@ -42,6 +48,10 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   offerOpinions: opinionByOfferReducer,
   userOpinions: opinionByUserReducer,
+  addReservation: addReservationReducer,
+  removeReservation: deleteReservationReducer,
+  getReservationByUser: getUserReservationReducer,
+  payForReservation: updatetUserReservationReducer,
 });
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

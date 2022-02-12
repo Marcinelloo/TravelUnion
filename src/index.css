@@ -36,6 +36,12 @@ blue {
   color: black;
 }
 
+/* Colors */
+
+.red {
+  background-color: red;
+}
+
 /* text in offer */
 
 input:focus::before::after,
@@ -107,9 +113,7 @@ button:focus::after {
 .animation {
   display: inline-block;
   opacity: 0;
-  filter: blur(4px); 
-
-  
+  filter: blur(4px);
 }
 
 .animation:nth-child(1) {

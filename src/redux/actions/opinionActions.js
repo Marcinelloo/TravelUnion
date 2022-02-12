@@ -7,13 +7,13 @@ import {
   OPINIONS_BY_USER_OBJCECT_REQUEST,
   OPINIONS_BY_USER_OBJCECT_SUCCESS,
 } from "../constants/opinionConstant";
-import {} from "../constants/opinionConstants";
+import {} from "../constants/opinionConstant";
 
 export const opinionByOffer = (offerId) => async (dispatch) => {
   dispatch({ type: OPINIONS_BY_OFFER_OBJCECT_REQUEST, payload: { offerId } });
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_LINK}/offer/offerOpinion`,
+      `${process.env.REACT_APP_SERVER_LINK}/opinion/offerOpinion`,
       { offerId }
     );
 
@@ -33,7 +33,7 @@ export const opinionByUser = (userId) => async (dispatch) => {
   dispatch({ type: OPINIONS_BY_USER_OBJCECT_REQUEST, payload: { userId } });
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_LINK}/offer/myOpinions`,
+      `${process.env.REACT_APP_SERVER_LINK}/opinion/myOpinions`,
       {
         userId,
       }
@@ -49,3 +49,5 @@ export const opinionByUser = (userId) => async (dispatch) => {
     });
   }
 };
+
+

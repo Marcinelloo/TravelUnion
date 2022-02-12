@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/esm/Container";
-import changeMonth from "../functions/changeDate";
-import Rating from "./Rating";
+import changeMonth from "../../functions/changeDate";
+import Rating from "../Rating";
 import Button from "react-bootstrap/esm/Button";
 import styled from "styled-components";
 
@@ -36,7 +36,7 @@ const Offer = ({ data }) => {
           src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/274545138.jpg?k=5b1b442023dc51205fcd23824c95f4aaae4ecd9f3f93b9636ff6d5f08f96454f&o=&hp=1"
           alt={data.hotelName}
           height="120px"
-          width="298ąąpx"
+          width="298px"
           style={{ borderRadius: "40px 40px 0px 0px" }}
         />
         <Container>
