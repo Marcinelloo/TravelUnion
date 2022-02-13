@@ -34,10 +34,17 @@ const OffersList = ({ country, city, dateFrom, dateBack }) => {
 
     if (counter === 0)
       return (
-        <MessageBox
-          type="danger"
-          info="Właśnie opracowujemy dla ciebie nowe oferty, spróbuj wyszukać w innym kraju!"
-        />
+        <div
+          style={{
+            paddingLeft: "10%",
+            fontSize: "14px",
+            fontStyle: "italic",
+            color: "darkred",
+          }}
+        >
+          Właśnie opracowujemy dla ciebie nowe oferty, spróbuj wyszukać w innym
+          kraju!{" "}
+        </div>
       );
 
     return city.map((city, _id) => {

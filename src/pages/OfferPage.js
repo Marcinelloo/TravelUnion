@@ -59,7 +59,13 @@ const OfferPage = () => {
         ""
       )}
       {data !== null ? <RateInfo data={data2} /> : ""}
-      {opinionData !== null ? <Opinions data={opinionData} /> : ""}
+      {opinionData !== null ? (
+        <Opinions data={opinionData} />
+      ) : (
+        <div style={{ textAlign: "center" }}>
+          Niestety, nie mamy zadnych opini na temat tego hotelu :(
+        </div>
+      )}
       {/* // zrobic jakis message box ze nie ma opini */}
     </div>
   );

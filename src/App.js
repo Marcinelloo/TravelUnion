@@ -1,11 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import BottomPage from "./components/BottomPage";
-
 import MainNavigation from "./components/NavComponents/MainNavigation";
 import UserComments from "./components/userPageComponents/UserComments";
 import UserData from "./components/userPageComponents/UserData";
 import UserReservations from "./components/userPageComponents/UserReservations";
-import UserTravels from "./components/userPageComponents/UserTravels";
 import HomePage from "./pages/HomePage";
 import OfferPage from "./pages/OfferPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -22,7 +20,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} exact />
         <Route path="/userInfo" element={<UserData />} exact />
         <Route path="/userReservations" element={<UserReservations />} exact />
-        <Route path="/userTravels" element={<UserTravels />} exact />
+
         <Route path="/userComments" element={<UserComments />} exact />
       </Routes>
       <BottomPage />
