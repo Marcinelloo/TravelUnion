@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
@@ -22,6 +23,7 @@ const Card = styled.div`
 
 const ShowReserwation = ({ data, sortBy, user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const reserwationInformation = useSelector(
     (state) => state.getReservationByUser
   );
@@ -83,6 +85,11 @@ const ShowReserwation = ({ data, sortBy, user }) => {
     }, 500);
   }
 
+  function writeCommentHandler(e) {
+    e.preventDefault();
+    navigate(`/writeComment/${e.target.value}`);
+  }
+
   return (
     <div
       style={{
@@ -92,43 +99,56 @@ const ShowReserwation = ({ data, sortBy, user }) => {
         gap: "30px",
       }}
     >
-      {reserwationData !== null
-        ? reserwationData.map((data) => {
-            return (
-              <Card key={data._id}>
-                <div style={{ fontSize: "12px" }}>numer: {data._id} </div>
-                <div style={{ fontSize: "12px" }}>imie: {user.name} </div>
-                <div style={{ fontSize: "12px" }}>
-                  nazwisko: {user.surname}{" "}
-                </div>
-                <div style={{ fontSize: "12px" }}>
-                  data rezerwacji: {data.dateFrom.substring(0, 10)}
-                </div>
-                <div style={{ display: "flex", gap: "10px", fontSize: "12px" }}>
-                  opłacone:{" "}
+      {reserwationData !== null ? (
+        reserwationData.map((data) => {
+          return (
+            <Card key={data._id}>
+              <div style={{ fontSize: "12px" }}>numer: {data._id} </div>
+              <div style={{ fontSize: "12px" }}>imie: {user.name} </div>
+              <div style={{ fontSize: "12px" }}>nazwisko: {user.surname} </div>
+              <div style={{ fontSize: "12px" }}>
+                data rezerwacji: {data.dateFrom.substring(0, 10)}
+              </div>
+              <div style={{ display: "flex", gap: "10px", fontSize: "12px" }}>
+                opłacone:{" "}
+                {data.payed === true ? (
+                  <p style={{ color: "green", fontWeight: "bold" }}>tak </p>
+                ) : (
+                  <p style={{ color: "red", fontWeight: "bold" }}>nie</p>
+                )}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "right",
+                  gap: "20px",
+                }}
+              >
+                {data.payed === false ? (
+                  <Button
+                    value={data._id}
+                    variant="outline-danger"
+                    onClick={(event) => payOfferHandler(event)}
+                    size="sm"
+                    bsPrefix="btn"
+                    style={{ borderRadius: "10px", fontSize: "13px" }}
+                  >
+                    opłać
+                  </Button>
+                ) : (
+                  ""
+                )}
+                <div style={{ display: "flex", gap: "20px" }}>
                   {data.payed === true ? (
-                    <p style={{ color: "green", fontWeight: "bold" }}>tak </p>
-                  ) : (
-                    <p style={{ color: "red", fontWeight: "bold" }}>nie</p>
-                  )}
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "right",
-                    gap: "20px",
-                  }}
-                >
-                  {data.payed === false ? (
                     <Button
                       value={data._id}
-                      variant="outline-danger"
-                      onClick={(event) => payOfferHandler(event)}
+                      variant="outline-success"
+                      onClick={(event) => writeCommentHandler(event)}
                       size="sm"
                       bsPrefix="btn"
                       style={{ borderRadius: "10px", fontSize: "13px" }}
                     >
-                      opłać
+                      ocen
                     </Button>
                   ) : (
                     ""
@@ -144,10 +164,16 @@ const ShowReserwation = ({ data, sortBy, user }) => {
                     anuluj
                   </Button>
                 </div>
-              </Card>
-            );
-          })
-        : " Nie masz jeszcze zadnych rezerwacji!"}
+              </div>
+            </Card>
+          );
+        })
+      ) : (
+        <p style={{ color: "red", fontSize: "12px" }}>
+          {" "}
+          Nie masz jeszcze zadnych rezerwacji!
+        </p>
+      )}
     </div>
   );
 };

@@ -12,7 +12,30 @@ import {
   UPDATE_RESERVATION_OBJCECT_REQUEST,
   UPDATE_RESERVATION_OBJCECT_SUCCESS,
   UPDATE_RESERVATION_OBJCECT_FAIL,
+  GET_BY_ID_RESERVATION_OBJCECT_REQUEST,
+  GET_BY_ID_RESERVATION_OBJCECT_SUCCESS,
+  GET_BY_ID_RESERVATION_OBJCECT_FAIL,
 } from "../constants/reservationConstant";
+
+
+export const reservationById = (reservationId) => async (dispatch) => {
+  dispatch({ type:   GET_BY_ID_RESERVATION_OBJCECT_REQUEST, payload: { reservationId } });
+  try {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_SERVER_LINK}/reservation/get/${reservationId}`
+    );
+
+    dispatch({ type: GET_BY_ID_RESERVATION_OBJCECT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_BY_ID_RESERVATION_OBJCECT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const addReservation =
   (userID, offerID, dateFrom) => async (dispatch) => {

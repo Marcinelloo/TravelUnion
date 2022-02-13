@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useLayoutEffect } from "react";
@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 import MessageQueue, { useMessageQueue } from "../../MessageQueue/Index";
 import { useRef } from "react";
+import { UserContext } from "../UserContext";
+import { signin, updateUser } from "../../redux/actions/userActions";
 
 const Wraper = styled.div`
   padding: 3%;
@@ -22,21 +24,20 @@ const InfoBox = styled.div`
 `;
 
 const UserData = () => {
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { user, setUser } = useContext(UserContext);
+
   const dispatch = useDispatch();
   const colors = ["#CCDFEC", "#F9AB47", "#D96242", "#A13A34", "#D24D55"];
   const [randColor, setRandColor] = useState(0);
-  const [name, setName] = useState(null);
-  const [surname, setSurname] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
 
   const nameInput = useRef();
   const surnameInput = useRef();
   const phoneNumberInput = useRef();
   const emailInput = useRef();
 
+  const [name, setName] = useState(user.name);
   const { addMessage, removeMessage, messages } = useMessageQueue();
+  const { userInfo } = useSelector((state) => state.userSignin);
 
   useLayoutEffect(() => {
     setRandColor(() => Math.floor(Math.random() * colors.length));
@@ -45,14 +46,28 @@ const UserData = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     addMessage(
-      `Twoje dane zostały zaktualizowane, wyloguj się i zaloguj aby je zobaczyc ponownie!`,
+      `Twoje dane zostały zaktualizowane, odswiez strone aby je zobaczy!`,
       "success"
     );
+
+    const arg1 = nameInput.current.value ? nameInput.current.value : user.name;
+    const arg2 = surnameInput.current.value
+      ? surnameInput.current.value
+      : user.surname;
+    const arg3 = emailInput.current.value
+      ? emailInput.current.value
+      : user.email;
+
+    dispatch(updateUser(user._id, arg1, arg2, arg3));
+    setTimeout(() => {
+      dispatch(signin(user.email, user.password));
+    }, 100);
+   
+
     nameInput.current.value = "";
     surnameInput.current.value = "";
     phoneNumberInput.current.value = "";
     emailInput.current.value = "";
-    // tu bedzie update
   };
 
   return (
@@ -79,7 +94,7 @@ const UserData = () => {
           />
           <div style={{ transform: "translateY(5px)" }}>
             <p style={{ fontSize: "20px", transform: "translateY(25px)" }}>
-              {userInfo.name} {userInfo.surname}
+              {user.name} {user.surname}
             </p>
             <p
               style={{
@@ -119,8 +134,7 @@ const UserData = () => {
                 }}
                 type="text"
                 id="name"
-                placeholder={userInfo.name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder={name}
               ></input>
             </div>
             <div>
@@ -138,8 +152,7 @@ const UserData = () => {
                 }}
                 type="text"
                 id="name"
-                placeholder={userInfo.surname}
-                onChange={(e) => setSurname(e.target.value)}
+                placeholder={user.surname}
               ></input>
             </div>
           </div>
@@ -169,7 +182,6 @@ const UserData = () => {
                 type="text"
                 id="name"
                 placeholder="662 222 222"
-                onChange={(e) => setPhoneNumber(e.target.value)}
               ></input>
             </div>
             <div>
@@ -187,8 +199,7 @@ const UserData = () => {
                 }}
                 type="email"
                 id="name"
-                placeholder={userInfo.email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder={user.email}
               ></input>
             </div>
           </div>

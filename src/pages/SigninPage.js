@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../redux/actions/userActions";
 import { Button } from "react-bootstrap";
 import MessageQueue, { useMessageQueue } from "../MessageQueue/Index";
+import { UserContext } from "../components/UserContext";
 
 const SigninPage = () => {
+  const { setUser } = useContext(UserContext);
   const { addMessage, removeMessage, messages } = useMessageQueue();
 
   const navigate = useNavigate();
@@ -23,11 +25,11 @@ const SigninPage = () => {
   };
 
   useEffect(() => {
-    if (userInfo !== undefined && userInfo !== null) {
+    if (userInfo !== undefined && userInfo !== null && loading !== true) {
+      setUser(userInfo);
       navigate("/");
     }
     if (error !== undefined) {
-      console.log(error);
       if (messages.length === 0) {
         if (error === "user doesnt exist")
           addMessage(`Taki uzytkownik nie istnieje!`, "error");

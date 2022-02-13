@@ -15,14 +15,18 @@ import {
 import {
   userRegisterReducer,
   userSigninReducer,
+  userUpdateReducer,
 } from "./redux/reducers/userReducer";
 import {
   opinionByOfferReducer,
   opinionByUserReducer,
   deleteOinionByUserReducer,
   upgradeOpinionByUserReducer,
+  createOpinionReducer,
+  getOpinionByIdReducer,
 } from "./redux/reducers/opinionReducers";
 import {
+  reservationByIdReducer,
   addReservationReducer,
   deleteReservationReducer,
   getUserReservationReducer,
@@ -56,6 +60,10 @@ const reducer = combineReducers({
   payForReservation: updatetUserReservationReducer,
   deleteOpinion: deleteOinionByUserReducer,
   upgradeOpinion: upgradeOpinionByUserReducer,
+  reservationById: reservationByIdReducer,
+  createOpinion: createOpinionReducer,
+  userUpdate: userUpdateReducer,
+  opinionById: getOpinionByIdReducer,
 });
 const composeEnchancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

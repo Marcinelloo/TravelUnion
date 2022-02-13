@@ -1,8 +1,9 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getByUserReservation } from "../../redux/actions/reservationActions";
+import { UserContext } from "../UserContext";
 import ShowReserwation from "./ShowReserwation";
 
 const UserReservations = () => {
@@ -13,11 +14,11 @@ const UserReservations = () => {
   const reserwationInformation = useSelector(
     (state) => state.getReservationByUser
   );
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { user } = useContext(UserContext);
 
   useLayoutEffect(() => {
-    dispatch(getByUserReservation(userInfo._id));
-  }, [userInfo]);
+    dispatch(getByUserReservation(user._id));
+  }, [user]);
 
   useEffect(() => {
     if (
@@ -114,7 +115,7 @@ const UserReservations = () => {
             <ShowReserwation
               data={reservation}
               sortBy={sortBy}
-              user={userInfo}
+              user={user}
             />
           </div>
         </div>

@@ -11,8 +11,41 @@ import {
   UPGRADE_BY_USER_OBJCECT_REQUEST,
   UPGRADE_BY_USER_OBJCECT_SUCCESS,
   UPGRADE_BY_USER_OBJCECT_FAIL,
+  CREATE_OPINION_BY_USER_OBJCECT_REQUEST,
+  CREATE_OPINION_BY_USER_OBJCECT_SUCCESS,
+  CREATE_OPINION_BY_USER_OBJCECT_FAIL,
+  OPINION_ID_OBJCECT_REQUEST,
+  OPINION_ID_OBJCECT_SUCCESS,
+  OPINION_ID_OBJCECT_FAIL,
+  
 } from "../constants/opinionConstant";
 import {} from "../constants/userConstants";
+
+export const getOpinionByIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case OPINION_ID_OBJCECT_REQUEST:
+      return { loading: true };
+    case OPINION_ID_OBJCECT_SUCCESS:
+      return { loading: false, object: action.payload };
+    case OPINION_ID_OBJCECT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const createOpinionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_OPINION_BY_USER_OBJCECT_REQUEST:
+      return { loading: true };
+    case CREATE_OPINION_BY_USER_OBJCECT_SUCCESS:
+      return { loading: false, object: action.payload };
+    case CREATE_OPINION_BY_USER_OBJCECT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const opinionByOfferReducer = (state = {}, action) => {
   switch (action.type) {

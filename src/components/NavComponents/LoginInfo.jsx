@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../redux/actions/userActions";
+import { UserContext } from "../UserContext";
 
 const LoginInfo = ({ name }) => {
+  const { setUser } = useContext(UserContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function logoutHandler() {
     dispatch(signout());
+    setUser(null);
     navigate("/");
   }
 
@@ -18,10 +21,6 @@ const LoginInfo = ({ name }) => {
   }
   function moveToUserReservations() {
     navigate("/userReservations");
-  }
-
-  function moveToUserTravels() {
-    navigate("/userTravels");
   }
 
   function moveToUserComments() {

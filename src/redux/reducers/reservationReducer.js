@@ -11,7 +11,23 @@ import {
   UPDATE_RESERVATION_OBJCECT_REQUEST,
   UPDATE_RESERVATION_OBJCECT_SUCCESS,
   UPDATE_RESERVATION_OBJCECT_FAIL,
+  GET_BY_ID_RESERVATION_OBJCECT_REQUEST,
+  GET_BY_ID_RESERVATION_OBJCECT_SUCCESS,
+  GET_BY_ID_RESERVATION_OBJCECT_FAIL,
 } from "../constants/reservationConstant";
+
+export const reservationByIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_BY_ID_RESERVATION_OBJCECT_REQUEST:
+      return { loading: true };
+    case GET_BY_ID_RESERVATION_OBJCECT_SUCCESS:
+      return { loading: false, object: action.payload };
+    case GET_BY_ID_RESERVATION_OBJCECT_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const addReservationReducer = (state = {}, action) => {
   switch (action.type) {

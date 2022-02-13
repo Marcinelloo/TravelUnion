@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../redux/actions/userActions";
 import MessageQueue, { useMessageQueue } from "../MessageQueue/Index";
 import { Button } from "react-bootstrap";
+import { UserContext } from "../components/UserContext";
 
 const RegisterPage = () => {
   const { addMessage, removeMessage, messages } = useMessageQueue();
@@ -16,7 +17,8 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
+  const { userInfo, error } = userRegister;
+  const { setUser } = useContext(UserContext);
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -28,15 +30,20 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (userInfo !== undefined && userInfo !== null) {
+      setUser(userInfo);
       navigate("/");
     }
     if (error !== undefined) {
       if (messages.length === 0) {
-        if (error === "cannot create user")
+        if (error === "cannot create user") {
           addMessage(
             `Nie mozna utworzy uzytkownika, bo juz istnieje!`,
             "error"
           );
+          setTimeout(() => {
+            navigate("/signin");
+          }, 1000);
+        }
       }
     }
   }, [userRegister]);

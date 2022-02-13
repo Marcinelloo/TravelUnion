@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import MessageQueue, { useMessageQueue } from "../../MessageQueue/Index";
 import { addReservation } from "../../redux/actions/reservationActions";
 import Rating from "../Rating";
+import { UserContext } from "../UserContext";
 
 const MainInformation = ({ data, offerId }) => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const { user } = useContext(UserContext);
   const { addMessage, removeMessage, messages } = useMessageQueue();
 
   function messageHandler(e) {
     e.preventDefault();
-    if (userInfo !== null && userInfo !== undefined) addMessageHandler();
+    if (user !== null && user !== undefined) addMessageHandler();
     else errorMessageHandler();
   }
 
@@ -22,7 +23,7 @@ const MainInformation = ({ data, offerId }) => {
   }
 
   function addMessageHandler() {
-    dispatch(addReservation(userInfo._id, offerId, new Date()));
+    dispatch(addReservation(user._id, offerId, new Date()));
     addMessage(
       `Oferta zostal pomyslnie dla ciebie zarezerowana, znajdziesz ja w swoich rezerwacjach!`,
       "success"

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currency } from "../../redux/actions/currencyActions";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import NavItems from "./NavItems";
 import Currency from "./Currency";
 import styled from "styled-components";
 import LoginInfo from "./LoginInfo";
+import { UserContext } from "../UserContext";
 
 const Wraper = styled.section`
   background-color: #dee2e6;
@@ -29,11 +30,11 @@ const MiddleContainer = styled.section`
 
 const MainNavigation = () => {
   const [colorMode, setColorMode] = useState("light");
+  const { user } = useContext(UserContext);
 
   const dispatch = useDispatch();
   const [data, setData] = useState("null");
   const currencyInfo = useSelector((state) => state.currency);
-  const { userInfo } = useSelector((state) => state.userSignin);
 
   useLayoutEffect(() => {
     dispatch(currency());
@@ -51,8 +52,8 @@ const MainNavigation = () => {
         <LogoSide />
         <MiddleContainer>
           <NavItems>{data !== "null" ? <Currency data={data} /> : ""}</NavItems>
-          {userInfo !== null && userInfo !== undefined ? (
-            <LoginInfo  name={userInfo.name} />
+          {user !== null && user !== undefined ? (
+            <LoginInfo  name={user.name} />
           ) : (
             <Link
               className="underline-animation"
